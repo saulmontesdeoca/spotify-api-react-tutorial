@@ -5,6 +5,7 @@ const Home = () => {
     const [token, setToken] = useState('');
     const [playlists, setPlaylists] = useState({});
     const [artists, setArtists] = useState({});
+    const [tracks, setTracks] = useState({});
     const [profile, setProfile] = useState({});
 
     const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
@@ -56,8 +57,8 @@ const Home = () => {
         }
         // request to spotify api to fetch 
         getData(PLAYLISTS_ENDPOINT, setPlaylists);
-        getData(TRACKS_ENDPOINT, setArtists);
-        getData(ARTISTS_ENDPOINT, setProfile);
+        getData(TRACKS_ENDPOINT, setTracks);
+        getData(ARTISTS_ENDPOINT, setArtists);
         getData(PROFILE_ENDPOINT, setProfile);
     }, []);
 
