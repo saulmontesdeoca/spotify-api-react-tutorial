@@ -6,8 +6,8 @@ const Home = () => {
     const getParamsFromHash = (hash) => {
         const hashContent = hash.substr(1); // removes #
         const paramsSplit = hashContent.split('&'); // returns list with keys and values
-        let params = {};
-        let values = [];
+        let params = {}; // fill with params
+        let values = []; // use in foreach loop to store split return values
         paramsSplit.forEach((item) => {
             values = item.split('=');
             params[values[0]] = values[1];
