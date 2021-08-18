@@ -24,7 +24,7 @@ const Home = () => {
             const hash = window.location.hash;
             const tokens = getParamsFromHash(hash);
             setToken(tokens.token);
-            localStorage.setItem('access_token', tokens.access_token);
+            localStorage.setItem('token', tokens.access_token);
             window.history.pushState({}, null, '/home');
         }
     }, []);
