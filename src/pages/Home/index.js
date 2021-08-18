@@ -23,8 +23,10 @@ const Home = () => {
         if(window.location.hash || token) {
             const hash = window.location.hash;
             const tokens = getParamsFromHash(hash);
-            setToken(tokens.token);
-            localStorage.setItem('token', tokens.access_token);
+            if(!token) {
+                setToken(tokens.token);
+                localStorage.setItem('token', tokens.access_token);
+            }
             window.history.pushState({}, null, '/home');
         }
     }, []);
