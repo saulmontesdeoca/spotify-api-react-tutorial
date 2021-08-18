@@ -51,8 +51,8 @@ const Home = () => {
             const tokens = getParamsFromHash(hash);
             if(!token) {
                 setToken(tokens.token);
+                localStorage.setItem('token', tokens.access_token);
             }
-            localStorage.setItem('token', tokens.access_token);
             window.history.pushState({}, null, '/home');
         }
         // request to spotify api to fetch 
