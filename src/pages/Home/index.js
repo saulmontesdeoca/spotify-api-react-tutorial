@@ -9,8 +9,8 @@ const Home = () => {
     const [profile, setProfile] = useState({});
 
     const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
-    const TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term";
-    const ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=long_term";
+    const TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=12";
+    const ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=12";
     const PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
 
     const getParamsFromHash = (hash) => {
@@ -51,8 +51,8 @@ const Home = () => {
             const tokens = getParamsFromHash(hash);
             if(!token) {
                 setToken(tokens.token);
+                localStorage.setItem('token', tokens.access_token);
             }
-            localStorage.setItem('token', tokens.access_token);
             window.history.pushState({}, null, '/home');
         }
         // request to spotify api to fetch 
@@ -64,10 +64,31 @@ const Home = () => {
 
     return (
         <div>
-            {token && <div>
-                <h1>Home</h1>
-                <p>Here's the token:</p>
-                <p>{token}</p>
+            {
+                profile.display_name && profile.images &&
+                <div className="profile">
+                    <img src={profile.images[0].url} alt="profile" /> 
+                    <h1>Hello 👋, {profile.display_name}!</h1>
+                </div>
+            }
+            {
+                tracks.items &&  
+                <div className="list">
+                    <h1>Your top tracks</h1>
+                    <div style={{display: 'grid', gridTemplateColumns: 'auto auto auto auto'}}>
+                    {
+                        tracks.items.map((track, index) => {
+                            return (
+                                <div key={index} className="track" style={{width: '100%', textAlign: 'center'}}>
+                                    <img src={track.album.images[0].url} alt="profile" /> 
+                                    <h2>{track.name}</h2>
+                                    <h3>By {track.artists[0].name}</h3>
+                                </div>
+                            );
+                        }
+                        )
+                    }
+                    </div>
                 </div>
             }
         </div>
